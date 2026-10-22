@@ -1,0 +1,25 @@
+{
+  "arrowFunction": {
+    "prefix": "afn",
+    "body": [
+      "const $1 = () => {",
+      "",
+      "};",
+      "",
+      "export { $1 }"
+    ],
+    "description": "Arrow function"
+  },
+  "tryCatch": {
+    "prefix": "trycatch",
+    "body": [
+      "try {",
+      "\t",
+      "} catch (error) {",
+      "\tconsole.error(error);",
+      "\t",
+      "}"
+    ],
+    "description": "Try/Catch Block"
+  }
+}

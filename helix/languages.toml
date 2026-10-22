@@ -1,0 +1,83 @@
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+[[language]]
+name="javascript"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name="typescript"
+indent = { tab-width = 2, unit = "  " }
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name="rust"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name="go"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name="python"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name="ruby"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "html"
+indent = { tab-width = 2, unit = "  " }
+language-servers = [ "vscode-html-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "jsx"
+indent = { tab-width = 2, unit = "  " }
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "tsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "toml"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "json"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "yaml"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "markdown"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "css"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "scss"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "bash"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "lua"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "c"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "cpp"
+indent = { tab-width = 2, unit = "  " }

@@ -1,0 +1,42 @@
+{
+  "ReactTSComponent": {
+    "prefix": "rtsc",
+    "body": [
+      "import React from 'react';",
+      "",
+      "interface ${1:Props} {}",
+      "",
+      "const ${2:ComponentName}: React.FC<${1:Props}> = ({}: ${1:Props}) => {",
+      "  return (",
+      "    <div>",
+      "      ${0:content}",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "export default ${2:ComponentName};"
+    ],
+    "description": "React component with TypeScript"
+  },
+  "tryCatch": {
+    "prefix": "trycatch",
+    "body": [
+      "try {",
+      "\t",
+      "} catch (error) {",
+      "\tconsole.error(error);",
+      "\t",
+      "}"
+    ],
+    "description": "Try/Catch Block"
+  },
+  "useEffect": {
+      "prefix": "useeffect",
+      "body": [
+        "useEffect(() => {",
+        "  ${0:// effect}",
+        "}, []);"
+      ],
+      "description": "useEffect hook"
+  }
+}

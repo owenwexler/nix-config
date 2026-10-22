@@ -1,0 +1,31 @@
+{
+  "reactArrowFunctionComponentExported": {
+    "prefix": "rafce",
+    "body": [
+      "import React from 'react';",
+      "",
+      "const ${1:ComponentName} = () => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$2",
+      "\t\t</div>",
+      "\t);",
+      "};",
+      "",
+      "export default ${1:ComponentName};"
+    ],
+    "description": "React arrow function component exported"
+  },
+  "tryCatch": {
+    "prefix": "trycatch",
+    "body": [
+      "try {",
+      "\t",
+      "} catch (error) {",
+      "\tconsole.error(error);",
+      "\t",
+      "}"
+    ],
+    "description": "Try/Catch Block"
+  }
+}

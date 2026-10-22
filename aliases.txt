@@ -1,0 +1,132 @@
+# -------
+# Aliases
+# -------
+
+# -------
+# Shell
+# -------
+alias c="clear"
+alias l='eza -lh --icons=auto' # long list
+alias ls='eza -1 --icons=auto' # short list
+alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long list all
+alias ld='eza -lhD --icons=auto'  # long list dirs
+alias lt='eza --icons=auto --tree' # list folder as tree
+
+function gocode { cd "$HOME/code/$1"; }
+
+alias gohome='cd ~'
+
+# These are macOS-specific
+# alias o="open ." # Open the current directory in Finder
+# alias brewnoupdate="HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_AUTO_UPGRADE=1 brew"
+# alias sha256="shasum -a 256"
+
+# -------
+# Neovim
+# -------
+alias nv="nvim ."
+
+# ----------------
+# Node Dev Servers
+# ----------------
+alias ns="npm start"
+alias nrd="npm run dev"
+alias nrt="npm run test"
+alias nrtui="npm run test:e2e:ui"
+alias nrtr="npm run test:e2e:run"
+alias nrti="npm run test:int:run"
+
+# ----------------
+# Bun Dev Servers
+# ----------------
+alias brd="bun run dev"
+alias brt="bun run test"
+alias brtui="bun run test:e2e:ui"
+alias brtr="bun run test:e2e:run"
+alias brti="bun run test:int:run"
+
+# ----------------
+# Deno Dev Servers
+# ----------------
+alias drd="deno run dev"
+alias drt="deno run test"
+alias drtui="deno run test:e2e:ui"
+alias drtr="deno run test:e2e:run"
+alias drti="deno run test:int:run"
+
+# ----------------
+# Tailwind Server
+# ----------------
+alias tw="tailwindcss -i static/input.css -o static/output.css --watch"
+
+# ----------------
+# Templ Dev Servers
+# ----------------
+alias tgw="templ generate --watch --cmd=\"go run cmd/server/main.go\""
+alias tgw3000="tgw proxy=\"http://localhost:3000\""
+alias tgw8080="tgw proxy=\"http://localhost:8080\""
+
+# -------
+# Emacs
+# -------
+alias demacs="emacs -nw"
+
+# ---------
+# Postgres
+# ---------
+# alias pglogin="sudo -i -u postgres" # log in as Postgres user which is necessary to run psql on Linux, uncomment if on Linux
+alias pg="psql -d postgres"
+
+# ---------
+# REDIS
+# ---------
+alias rcli="redis-cli"
+alias delfromredis="~/delfromredis.sh"
+
+# ---------------------
+# Remote / thin client
+# ---------------------
+# Attach to a persistent remote session. mosh survives roaming and suspend;
+# tmux survives mosh dying. You want both, always, in that order.
+# Usage: rdev myhost
+rdev() { mosh "$1" -- tmux new-session -A -s main; }
+
+# THE GOTCHA: mosh cannot forward ports. There is no `mosh -L`. So a dev server
+# on the remote box is NOT reachable just because you're mosh'd in.
+# Two ways round it, and the first is better:
+#   1. Tailscale - just hit the box directly: http://myhost:3000. No tunnel to
+#      babysit, works from the phone too. This is why Tailscale is worth having.
+#   2. A separate autossh tunnel alongside the mosh session, for when the port
+#      is bound to the remote 127.0.0.1 and you can't rebind it.
+# Usage: tun myhost 3000
+tun() { autossh -M 0 -N -L "$2:localhost:$2" "$1"; }
+
+# Mount a remote project locally and edit it in local nvim (no latency on
+# keystrokes; the build still runs remotely over mosh).
+# Usage: rmount myhost /home/me/project  ->  ~/remote/project
+rmount() { mkdir -p "$HOME/remote/$(basename "$2")"; sshfs "$1:$2" "$HOME/remote/$(basename "$2")"; }
+rumount() { fusermount3 -u "$HOME/remote/$1" 2>/dev/null || fusermount -u "$HOME/remote/$1"; }
+
+# Run a single remote GUI app in a local window (Wayland-native forwarding).
+# Fine for editors and tools; falls apart on anything pushing video frames -
+# use Moonlight for Godot playtests and video scrubbing.
+# Usage: rgui myhost kdenlive
+rgui() { waypipe ssh "$1" "$2"; }
+
+# Is the link actually good enough, or is it the software?
+alias linkcheck='mtr -rwc 20'
+
+# -----
+# Git
+# -----
+alias gaa='git add .'
+alias gcm='git commit -m'
+alias gpsh='git push'
+alias gss='git status -s'
+alias gs='echo ""; echo "*********************************************"; echo -e "   DO NOT FORGET TO PULL BEFORE COMMITTING"; echo "*********************************************"; echo ""; git status'
+alias gpll='git pull'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gmm='git merge main'
+alias getloc="git ls-files | xargs wc -l"
+
