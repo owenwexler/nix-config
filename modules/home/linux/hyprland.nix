@@ -153,6 +153,7 @@ in
     -- Apps
     -- ---------------------------------------------------------------
     bind("SUPER + D", "App launcher", run("rofi -show drun"))
+    bind("SUPER + SPACE", "App launcher", run("rofi -show drun"))
     bind("SUPER + RETURN", "Terminal (Foot)", run("foot"))
     bind("SUPER + ALT + RETURN", "Alternate terminal (Kitty)", run("kitty"))
     bind("SUPER + B", "Browser", run("chromium"))
