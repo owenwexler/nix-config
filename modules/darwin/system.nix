@@ -1,6 +1,12 @@
 # macOS settings from NIX_SETUP.md: no desktop items or widgets, a hidden
 # dock, Finder preferences, auto-hidden menu bar, Spotlight off Cmd+Space.
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 let
   user = config.dotfiles.user.name;
 in
@@ -28,6 +34,12 @@ in
   nix.optimise.automatic = true;
 
   nixpkgs.config.allowUnfree = true;
+
+  # Share the system package set (and its allowUnfree) with Home Manager.
+  # See modules/nixos/software.nix.
+  home-manager = lib.optionalAttrs (options ? home-manager) {
+    useGlobalPkgs = lib.mkDefault true;
+  };
 
   programs.zsh.enable = true;
 
@@ -119,6 +131,10 @@ in
         };
       };
 
+      # Liquid Glass: Appearance > "Tint window background with wallpaper
+      # color" off. (Reduce Transparency is set below the defaults.)
+      NSGlobalDomain.AppleReduceDesktopTinting = true;
+
       # Don't write .DS_Store on network and USB volumes
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
@@ -126,6 +142,14 @@ in
       };
     };
   };
+
+  # Liquid Glass: Accessibility > Display > Reduce Transparency.
+  # macOS only lets a process write this domain if it has Full Disk Access,
+  # so a failure warns instead of aborting the switch.
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+    sudo -u ${user} defaults write com.apple.universalaccess reduceTransparency -bool true \
+      || echo "Couldn't set Reduce Transparency. Turn it on in System Settings > Accessibility > Display, or give your terminal Full Disk Access and re-run the switch." >&2
+  '';
 
   system.stateVersion = 6;
 }

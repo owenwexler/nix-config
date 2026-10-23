@@ -4,6 +4,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -11,13 +12,8 @@ let
   sw = config.dotfiles.software;
   user = config.dotfiles.user.name;
   inherit (lib) mkIf optionals;
-in
-{
-  imports = [ ../options.nix ];
-
-  nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages =
+  # Apps without a build for this CPU (e.g. Zoom on ARM) are skipped; see lib/available.nix.
+  apps = import ../../lib/available.nix lib pkgs.stdenv.hostPlatform (
     with pkgs;
     [
       # ---- Browser, terminals, files ----
@@ -98,7 +94,24 @@ in
       # Parallels and UTM are macOS-only; QEMU/KVM + virt-manager covers both.
       virt-manager
       quickemu
-    ];
+    ]
+  );
+  canRun = lib.meta.availableOn pkgs.stdenv.hostPlatform;
+in
+{
+  imports = [ ../options.nix ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  # Without useGlobalPkgs, Home Manager builds its own package set, which
+  # ignores the line above and rejects unfree tools like claude-code.
+  # Only set when the host config has Home Manager loaded.
+  home-manager = lib.optionalAttrs (options ? home-manager) {
+    useGlobalPkgs = lib.mkDefault true;
+  };
+
+  environment.systemPackages = apps.packages;
+  warnings = apps.warnings;
 
   # Prebuilt binaries (Mason LSPs in LazyVim, Bun/Deno add-ons, Grok Build)
   # expect a normal Linux loader. nix-ld provides one.
@@ -113,7 +126,8 @@ in
 
   services.tailscale.enable = true;
 
-  services.nordvpn.enable = true;
+  # NordVPN and Steam only ship x86_64 Linux builds.
+  services.nordvpn.enable = canRun pkgs.nordvpn;
 
   virtualisation.docker.enable = true;
 
@@ -142,7 +156,7 @@ in
     openFirewall = true;
   };
 
-  programs.steam = mkIf sw.gaming {
+  programs.steam = mkIf (sw.gaming && canRun pkgs.steam-unwrapped) {
     enable = true;
     remotePlay.openFirewall = true;
   };
@@ -152,8 +166,8 @@ in
 
   users.users.${user}.extraGroups = [
     "docker"
-    "nordvpn"
   ]
+  ++ optionals config.services.nordvpn.enable [ "nordvpn" ]
   ++ optionals sw.virtualMachines [ "libvirtd" ]
   ++ optionals sw.mobileDev [ "adbusers" ];
 }

@@ -8,7 +8,10 @@
 
   nixos = {
     hostname = "nixos";
-    system = "x86_64-linux"; # "aarch64-linux" on ARM hardware
+    # ARM, for the Parallels VM on Apple Silicon. Use "x86_64-linux" on Intel/AMD.
+    # Apps with no ARM Linux build (Zoom, Slack, Spotify, Steam...) are skipped
+    # with a warning; see lib/available.nix.
+    system = "aarch64-linux";
     # Set true on Apple keyboards: swaps Option/Command so $mod (Super)
     # sits on the physical Option key, same spot as Hyper on macOS.
     macKeyboard = false;

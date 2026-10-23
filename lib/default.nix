@@ -68,6 +68,7 @@ in
       modules = [
         {
           nixpkgs.hostPlatform = settings.nixos.system;
+          nixpkgs.config.allowUnfree = true;
           networking.hostName = settings.nixos.hostname;
         }
         settingsModule
@@ -84,6 +85,7 @@ in
       modules = [
         {
           nixpkgs.hostPlatform = settings.darwin.system;
+          nixpkgs.config.allowUnfree = true;
           networking.hostName = settings.darwin.hostname;
           networking.computerName = settings.darwin.hostname;
         }

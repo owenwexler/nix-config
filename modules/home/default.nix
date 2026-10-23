@@ -20,6 +20,11 @@
 
   programs.home-manager.enable = true;
 
+  # Allow unfree for ad-hoc commands outside this flake: `nix-shell -p`,
+  # `nix-env`, and `nix run`/`nix shell nixpkgs#...` with --impure.
+  xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }\n";
+  home.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
+
   # tobi/try: `try` makes a fresh scratch dir under ~/src/tries and cds into it.
   programs.try.enable = true;
 }

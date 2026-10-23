@@ -26,6 +26,12 @@ America/New York
 (macOS) Finder advanced settings - uncheck show warning before changing an extension, set Search Current Folder to search default 
 (macOS) View settings - Show Pathbar, Show Status Bar
 
+# Removing The Worst Of Liquid Glass
+This may also be settings changes that can't be scripted, please add to the section on unscriptable settings changes in README.md if so.  
+(macOS) Accessibility -> Reduce Transparency 
+(macOS) System Settings -> Appearance -> Liquid Glass -> Tinted 
+(macOS) System Settings -> Appearance -> Liquid Glass -> Tint window background with wallpaper color -> off 
+
 # Karabiner Elements+Hyper Key (macOS Tahoe and later only)
 macOS Tahoe and later hijacks many of my most used shortcuts (Option-E, Option-Enter just to name two examples) at the OS level.  This is the workaround that preserves my muscle memory across both macOS and Linux.
 (macOS) Karabiner Elements 

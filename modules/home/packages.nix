@@ -12,9 +12,8 @@ let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   sw = config.dotfiles.software;
   system = pkgs.stdenv.hostPlatform.system;
-in
-{
-  home.packages =
+  # Tools without a build for this CPU are skipped; see lib/available.nix.
+  cli = import ../../lib/available.nix lib pkgs.stdenv.hostPlatform (
     with pkgs;
     [
       # ---- Misc ----
@@ -93,5 +92,10 @@ in
     ]
     ++ lib.optionals isDarwin [
       nvtopPackages.apple
-    ];
+    ]
+  );
+in
+{
+  home.packages = cli.packages;
+  warnings = cli.warnings;
 }
