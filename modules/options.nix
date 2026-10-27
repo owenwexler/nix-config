@@ -21,6 +21,15 @@ in
         type = types.str;
         description = "E-mail, used for git.";
       };
+      passwordFile = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          NixOS: absolute path to a file outside the repo holding the user's
+          hashed password (from `mkpasswd -m sha-512`). Null leaves the
+          password alone.
+        '';
+      };
     };
 
     timeZone = mkOption {

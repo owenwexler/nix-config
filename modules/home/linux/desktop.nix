@@ -23,7 +23,7 @@ in
       colors-dark = {
         background = c.background;
         foreground = c.foreground;
-        selection-background = c.rosewater;
+        selection-background = c.fgSoft;
         selection-foreground = c.background;
         cursor = "${c.background} ${c.cursor}";
         urls = c.blue;
@@ -40,7 +40,7 @@ in
       package = pkgs.adw-gtk3;
     };
     iconTheme = {
-      name = "Yaru-purple-dark";
+      name = "Yaru-magenta-dark"; # the Tokyo Night OLED theme's icons.theme
       package = pkgs.yaru-theme;
     };
     font = {
@@ -59,13 +59,13 @@ in
       @define-color view_fg_color #${c.foreground};
       @define-color headerbar_bg_color #${c.background};
       @define-color headerbar_fg_color #${c.foreground};
-      @define-color sidebar_bg_color #${c.surface0};
+      @define-color sidebar_bg_color #${c.surface};
       @define-color sidebar_fg_color #${c.foreground};
-      @define-color card_bg_color #${c.surface0};
+      @define-color card_bg_color #${c.surface};
       @define-color card_fg_color #${c.foreground};
-      @define-color popover_bg_color #${c.surface0};
+      @define-color popover_bg_color #${c.surface};
       @define-color popover_fg_color #${c.foreground};
-      @define-color dialog_bg_color #${c.surface0};
+      @define-color dialog_bg_color #${c.surface};
       @define-color dialog_fg_color #${c.foreground};
       @define-color destructive_bg_color #${c.red};
       @define-color success_color #${c.green};

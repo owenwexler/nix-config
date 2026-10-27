@@ -144,22 +144,6 @@
         "type": "github"
       }
     },
-    "omarchy-catppuccin-dark": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788533503,
-        "narHash": "sha256-JPs8P+ZvmFuRjQppl0zEg1E1F0N9QmKiBiX6Z0WY5gE=",
-        "owner": "Luquatic",
-        "repo": "omarchy-catppuccin-dark",
-        "rev": "54b98a5c7302783298df05238ab55f312ec327ea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Luquatic",
-        "repo": "omarchy-catppuccin-dark",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "cliamp": "cliamp",
@@ -167,7 +151,6 @@
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
-        "omarchy-catppuccin-dark": "omarchy-catppuccin-dark",
         "try": "try"
       }
     },

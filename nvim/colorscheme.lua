@@ -1,37 +1,31 @@
--- Catppuccin Dark: Catppuccin Mocha with a true black background and white text.
+-- Tokyo Night OLED: tokyonight-night with a true black background and white text.
+-- on_colors runs after tokyonight works out its derived colors, so every
+-- background (floats, sidebars, statusline, popups) ends up black, not navy.
+local black = "#000000"
+
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     opts = {
-      flavour = "mocha",
-      color_overrides = {
-        mocha = {
-          base = "#000000",
-          mantle = "#000000",
-          crust = "#000000",
-          text = "#ffffff",
-        },
-      },
-    },
-    specs = {
-      {
-        "akinsho/bufferline.nvim",
-        optional = true,
-        opts = function(_, opts)
-          if (vim.g.colors_name or ""):find("catppuccin") then
-            opts.highlights = require("catppuccin.special.bufferline").get_theme()
-          end
-        end,
-      },
+      style = "night",
+      on_colors = function(c)
+        c.bg = black
+        c.bg_dark = black
+        c.bg_dark1 = black
+        c.bg_float = black
+        c.bg_popup = black
+        c.bg_sidebar = black
+        c.bg_statusline = black
+        c.fg = "#ffffff"
+      end,
     },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "tokyonight-night",
     },
   },
 }

@@ -1,13 +1,18 @@
 # Ghostty (main terminal on macOS; the app itself is a Homebrew cask).
-{ ... }:
+{ lib, ... }:
 let
   c = import ../../palette.nix;
+  ansi = lib.concatImapStringsSep "\n" (i: hex: "palette = ${toString (i - 1)}=#${hex}") c.ansi;
 in
 {
   xdg.configFile."ghostty/config".text = ''
-    theme = Catppuccin Mocha
+    # ---- Tokyo Night OLED ----
     background = #${c.background}
     foreground = #${c.foreground}
+    cursor-color = #${c.cursor}
+    selection-background = #${c.highlight}
+    selection-foreground = #${c.foreground}
+    ${ansi}
     background-opacity = 1
 
     font-family = JetBrainsMono Nerd Font

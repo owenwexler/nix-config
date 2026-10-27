@@ -28,7 +28,6 @@ let
       jq
       unzip
       cmatrix
-      flakeInputs.cliamp.packages.${system}.default
 
       # ---- Dev ----
       gnumake
@@ -72,6 +71,16 @@ let
       ffmpeg
       yt-dlp
       imagemagick
+    ]
+    # cliamp's flake has no Intel Mac build, so the Intel Mac goes without it.
+    ++ lib.optionals (flakeInputs.cliamp.packages ? ${system}) [
+      # cliamp's own flake pins a stale hash for its Go dependencies, so the
+      # build fails with a hash mismatch. This is the correct one for the
+      # locked cliamp revision. After `nix flake update cliamp`, if the build
+      # reports a mismatch again, paste the "got:" hash here.
+      (flakeInputs.cliamp.packages.${system}.default.overrideAttrs {
+        vendorHash = "sha256-4IobrZ8UBXehfWH1WvzaICcuZlk9zZaVHW7c7h1Wex0=";
+      })
     ]
     ++ lib.optionals sw.kotlinDev [
       jdk21

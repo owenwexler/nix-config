@@ -1,11 +1,13 @@
 # Base system: Nix itself, time zone, locale, the user account, fonts.
 {
   config,
+  lib,
   pkgs,
   ...
 }:
 let
   user = config.dotfiles.user.name;
+  passwordFile = config.dotfiles.user.passwordFile;
 in
 {
   imports = [ ../options.nix ];
@@ -21,6 +23,10 @@ in
         user
       ];
       auto-optimise-store = true;
+      # Ride out flaky connections (VM NAT, cache.nixos.org timeouts) instead
+      # of failing a big rebuild halfway through.
+      download-attempts = 10;
+      connect-timeout = 30;
     };
     gc = {
       automatic = true;
@@ -47,7 +53,18 @@ in
       "audio"
       "input"
     ];
+    hashedPasswordFile = passwordFile;
   };
+
+  # Refuse to switch if the password file is missing; otherwise the user
+  # would be created with no password and you'd be locked out.
+  system.preSwitchChecks.passwordFile = lib.mkIf (passwordFile != null) ''
+    if [ ! -s ${lib.escapeShellArg passwordFile} ]; then
+      echo "Missing ${passwordFile}. Create it first (see README.md):" >&2
+      echo "  nix-shell -p mkpasswd --run 'mkpasswd -m sha-512' | sudo tee ${passwordFile} > /dev/null" >&2
+      exit 1
+    fi
+  '';
 
   programs.zsh.enable = true;
 

@@ -107,7 +107,7 @@ in
 
   programs.bat = {
     enable = true;
-    # "ansi" follows the terminal palette, which is Catppuccin Dark.
+    # "ansi" follows the terminal palette, which is Tokyo Night OLED.
     config.theme = "ansi";
   };
 

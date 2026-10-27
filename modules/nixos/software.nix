@@ -97,6 +97,7 @@ let
     ]
   );
   canRun = lib.meta.availableOn pkgs.stdenv.hostPlatform;
+  isx86 = pkgs.stdenv.hostPlatform.isx86_64;
 in
 {
   imports = [ ../options.nix ];
@@ -126,7 +127,7 @@ in
 
   services.tailscale.enable = true;
 
-  # NordVPN and Steam only ship x86_64 Linux builds.
+  # NordVPN only ships an x86_64 Linux build.
   services.nordvpn.enable = canRun pkgs.nordvpn;
 
   virtualisation.docker.enable = true;
@@ -156,10 +157,15 @@ in
     openFirewall = true;
   };
 
-  programs.steam = mkIf (sw.gaming && canRun pkgs.steam-unwrapped) {
+  # Steam is x86-only, but its package doesn't say so, so check the CPU itself.
+  programs.steam = mkIf (sw.gaming && isx86) {
     enable = true;
     remotePlay.openFirewall = true;
   };
+
+  # 32-bit graphics only exist on x86_64. Steam and some hardware profiles
+  # turn them on, which stops an ARM build with an assertion error.
+  hardware.graphics.enable32Bit = mkIf (!isx86) (lib.mkForce false);
 
   virtualisation.libvirtd.enable = sw.virtualMachines;
   programs.virt-manager.enable = sw.virtualMachines;

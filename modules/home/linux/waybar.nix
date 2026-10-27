@@ -1,4 +1,4 @@
-# Waybar: Omarchy-style layout, Catppuccin Dark colors.
+# Waybar: Omarchy-style layout, Tokyo Night OLED colors.
 { ... }:
 let
   c = import ../../palette.nix;
@@ -130,13 +130,13 @@ in
 
       #workspaces button {
         padding: 0 6px;
-        color: #${c.overlay1};
+        color: #${c.muted};
         background: transparent;
       }
       #workspaces button.active { color: #${c.blue}; }
       #workspaces button.urgent { color: #${c.red}; }
       #workspaces button:hover {
-        background: #${c.surface0};
+        background: #${c.surface};
         box-shadow: none;
       }
 
@@ -148,7 +148,7 @@ in
         color: #${c.foreground};
       }
 
-      #network.disconnected, #pulseaudio.muted { color: #${c.overlay0}; }
+      #network.disconnected, #pulseaudio.muted { color: #${c.comment}; }
       #battery.charging { color: #${c.green}; }
       #battery.warning:not(.charging) { color: #${c.yellow}; }
       #battery.critical:not(.charging) { color: #${c.red}; }

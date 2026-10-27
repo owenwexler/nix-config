@@ -1,4 +1,4 @@
-# Rofi launcher ($mod+D), Catppuccin Dark.
+# Rofi launcher ($mod+D), Tokyo Night OLED.
 { pkgs, ... }:
 let
   c = import ../../palette.nix;
@@ -7,7 +7,7 @@ in
   programs.rofi = {
     enable = true;
     package = pkgs.rofi;
-    theme = "catppuccin-dark";
+    theme = "tokyo-night-oled";
     settings = {
       terminal = "foot";
       font = "JetBrainsMono Nerd Font 12";
@@ -21,12 +21,12 @@ in
     };
   };
 
-  xdg.dataFile."rofi/themes/catppuccin-dark.rasi".text = ''
+  xdg.dataFile."rofi/themes/tokyo-night-oled.rasi".text = ''
     * {
       bg:       #${c.background}e6;
-      bg-alt:   #${c.surface0};
+      bg-alt:   #${c.surface};
       fg:       #${c.foreground};
-      fg-dim:   #${c.overlay1};
+      fg-dim:   #${c.muted};
       accent:   #${c.blue};
       urgent:   #${c.red};
 

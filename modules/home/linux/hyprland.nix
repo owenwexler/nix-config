@@ -12,12 +12,37 @@
 }:
 let
   c = import ../../palette.nix;
-  wallpapers = "${flakeInputs.omarchy-catppuccin-dark}/backgrounds";
+  # Earth from space, the NixOS take on macOS's Earth wallpapers. All NASA
+  # photos (public domain), 3000px or larger.
+  nasa =
+    id: hash:
+    pkgs.fetchurl {
+      url = "https://images-assets.nasa.gov/image/${id}/${id}~orig.jpg";
+      inherit hash;
+    };
+  wallpapers = pkgs.linkFarm "earth-wallpapers" [
+    {
+      name = "blue-marble.jpg"; # Apollo 17, 1972
+      path = nasa "as17-148-22727" "sha256-y0w9LamO5yEw6/0upHL8hO3mcmACwqjJyr2G5N7qnw8=";
+    }
+    {
+      name = "earthrise.jpg"; # Apollo 8, 1968
+      path = nasa "as08-14-2383" "sha256-SxSE6btVZS4wpWwDwnFBk4iFoJ5LPAvKu4hB4elO2dk=";
+    }
+    {
+      name = "airglow-limb.jpg"; # ISS, 2020
+      path = nasa "iss061e123823" "sha256-10o48cUwwQGrYxAmPvP9YkMAgqoB8IHdMchVHQ/Ahxo=";
+    }
+    {
+      name = "sunlit-horizon.jpg"; # ISS, 2014
+      path = nasa "iss040e080833" "sha256-/kw6ryapfzBrBsPU7x1t3b7oxzYD+/uSOQCc2twgTfM=";
+    }
+  ];
 
   # Picks a random wallpaper other than the current one.
   wallpaperNext = pkgs.writeShellScript "wallpaper-next" ''
     current=$(cat "$XDG_RUNTIME_DIR/wallpaper" 2>/dev/null)
-    next=$(find ${wallpapers} -type f | grep -vxF "$current" | shuf -n1)
+    next=$(find -L ${wallpapers} -type f | grep -vxF "$current" | shuf -n1)
     echo "$next" > "$XDG_RUNTIME_DIR/wallpaper"
     pkill -x swaybg
     exec ${pkgs.swaybg}/bin/swaybg -m fill -i "$next"
@@ -87,14 +112,14 @@ in
 
       -- ---------------------------------------------------------------
       -- Look and feel: tight gaps, thin borders (nix/hypr/looknfeel.lua),
-      -- Catppuccin Dark border gradient
+      -- Tokyo Night OLED border gradient
       -- ---------------------------------------------------------------
       general = {
         gaps_in = 1,
         gaps_out = 2,
         border_size = 1,
         col = {
-          active_border = { colors = { "rgba(${c.blue}ee)", "rgba(${c.pink}ee)" }, angle = 25 },
+          active_border = { colors = { "rgba(${c.blue}ee)", "rgba(${c.magenta}ee)" }, angle = 25 },
           inactive_border = "rgba(1a1a1a60)",
         },
         resize_on_border = true,

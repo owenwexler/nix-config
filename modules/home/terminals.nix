@@ -18,21 +18,21 @@ in
     enable_audio_bell no
     macos_option_as_alt left
 
-    # ---- Catppuccin Dark ----
+    # ---- Tokyo Night OLED ----
     foreground           #${c.foreground}
     background           #${c.background}
     background_opacity   1.0
     selection_foreground #${c.background}
-    selection_background #${c.rosewater}
+    selection_background #${c.fgSoft}
     cursor               #${c.cursor}
     cursor_text_color    #${c.background}
-    url_color            #${c.rosewater}
-    active_border_color   #${c.lavender}
-    inactive_border_color #${c.overlay0}
+    url_color            #${c.fgSoft}
+    active_border_color   #${c.purple}
+    inactive_border_color #${c.comment}
     active_tab_foreground   #${c.background}
-    active_tab_background   #${c.mauve}
+    active_tab_background   #${c.magenta}
     inactive_tab_foreground #${c.foreground}
-    inactive_tab_background #${c.surface0}
+    inactive_tab_background #${c.surface}
     tab_bar_background      #${c.background}
     ${ansi}
   '';

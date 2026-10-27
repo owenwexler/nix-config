@@ -5,6 +5,15 @@
 macOS, using Nix for package management and preferably also settings management, fresh install
 NixOS, fresh install
 
+# Desired Hardware Targets
+## NixOS
+Parallels ARM virtual machine running in macOS Sequoia on a MacBook Pro M4
+Bare-metal on an Intel PC laptop, most likely 
+
+## Nix-Darwin 
+macOS Golden Gate on a MacBook Pro M4
+macOS Tahoe on a 2019 Intel MacBook Pro, if possible
+
 # Experimental Features
 Use flakes and Home Manager
 
@@ -56,7 +65,7 @@ Application launcher hotkey: $mod-D
 (NixOS) Rofi
 
 # Top Bar
-(macOS) Stickybar
+(macOS) Sketchybar
 (macOS) Setting: auto-hide regular macOS top bar
 (macOS) Stats
 
@@ -225,9 +234,9 @@ UTM
 (macOS) Try Omarchy 
 
 # Theme 
-Catpuccin Dark (Catpuccin colors with #fff white text and #000 true black background)
-(macOS) Earth/space pictures rotation that comes with macOS with Catpuccin Dark color themes for Neovim, Eza, Btop, Ghostty, Kitty, FastFetch, LazySQL, Posting, Nautilus
-(NixOS) adapt the Catpuccin Dark Omarchy theme for NixOS/Hyprland
+[Tokyo Night OLED](https://github.com/Justin-De-Sio/omarchy-tokyoled-theme) (Tokyo Night colors with #fff white text and #000 true black background)
+(macos) Earth/space pictures rotation that comes with macOS with Tokyo Night OLED colors color themes for Neovim, Eza, Btop, Ghostty, Kitty, FastFetch, LazySQL, Posting, Nautilus
+(NixOS) adapt the [Tokyo Night OLED Omarchy theme](https://github.com/Justin-De-Sio/omarchy-tokyoled-theme) for NixOS/Hyprland, replace 
 
 # Font
 JetBrains Mono Nerd Font

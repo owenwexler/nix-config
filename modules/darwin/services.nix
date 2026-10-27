@@ -159,7 +159,7 @@ in
     style = "round";
     width = 3.0;
     hidpi = true;
-    active_color = "gradient(top_left=0xee${c.blue},bottom_right=0xee${c.pink})";
+    active_color = "gradient(top_left=0xee${c.blue},bottom_right=0xee${c.magenta})";
     inactive_color = "0x00000000";
   };
 

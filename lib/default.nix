@@ -39,6 +39,7 @@ let
         name = settings.username;
         fullName = settings.fullName;
         email = settings.email;
+        passwordFile = settings.nixos.passwordFile;
       };
       timeZone = settings.timeZone;
       macKeyboard = settings.nixos.macKeyboard;
@@ -79,19 +80,26 @@ in
       ];
     };
 
+  # `host`, `darwin` and `homeManager` are swapped for the Intel Mac, which
+  # needs the 26.05 branches (see flake.nix).
   mkDarwin =
-    { hostModule }:
-    nix-darwin.lib.darwinSystem {
+    {
+      hostModule,
+      host ? settings.darwin,
+      darwin ? nix-darwin,
+      homeManager ? home-manager,
+    }:
+    darwin.lib.darwinSystem {
       modules = [
         {
-          nixpkgs.hostPlatform = settings.darwin.system;
+          nixpkgs.hostPlatform = host.system;
           nixpkgs.config.allowUnfree = true;
-          networking.hostName = settings.darwin.hostname;
-          networking.computerName = settings.darwin.hostname;
+          networking.hostName = host.hostname;
+          networking.computerName = host.hostname;
         }
         settingsModule
         (withInputs ../modules/darwin)
-        home-manager.darwinModules.home-manager
+        homeManager.darwinModules.home-manager
         nix-homebrew.darwinModules.nix-homebrew
         (homeManager ../modules/home/darwin)
         hostModule

@@ -1,54 +1,53 @@
-# Catppuccin Dark: the Catppuccin Mocha accents on a true black background
-# with pure white text. Every themed app reads its colors from here.
+# Tokyo Night OLED (https://github.com/Justin-De-Sio/omarchy-tokyoled-theme):
+# Tokyo Night Night accents on a true black background with pure white text.
+# Every themed app reads its colors from here.
 # Values are "rrggbb" without the leading '#'.
 rec {
   background = "000000";
   foreground = "ffffff";
 
-  # Mocha surfaces, nudged darker so they sit well on true black.
-  surface0 = "1e1e2e";
-  surface1 = "313244";
-  surface2 = "45475a";
-  overlay0 = "6c7086";
-  overlay1 = "7f849c";
-  subtext = "bac2de";
+  # Surfaces, darkest to lightest
+  surface = "16161e"; # sidebars, cards, inactive tabs
+  highlight = "292e42"; # selections, meters
+  border = "414868";
+  comment = "565f89";
+  muted = "737aa2"; # inactive text
+  subtext = "a9b1d6";
+  fgSoft = "c0caf5"; # Tokyo Night's own text color
 
-  # Mocha accents
-  rosewater = "f5e0dc";
-  flamingo = "f2cdcd";
-  pink = "f5c2e7";
-  mauve = "cba6f7";
-  red = "f38ba8";
-  maroon = "eba0ac";
-  peach = "fab387";
-  yellow = "f9e2af";
-  green = "a6e3a1";
-  teal = "94e2d5";
-  sky = "89dceb";
-  sapphire = "74c7ec";
-  blue = "89b4fa";
-  lavender = "b4befe";
+  # Accents
+  blue = "7aa2f7";
+  cyan = "7dcfff";
+  sapphire = "2ac3de";
+  magenta = "bb9af7";
+  purple = "9d7cd8";
+  red = "f7768e";
+  darkRed = "db4b4b";
+  orange = "ff9e64";
+  yellow = "e0af68";
+  green = "9ece6a";
+  teal = "73daca";
 
   accent = blue;
-  cursor = rosewater;
+  cursor = fgSoft;
 
-  # The 16 ANSI colors, same as the Omarchy catppuccin-dark theme.
+  # The 16 ANSI colors, exactly as in the theme's colors.toml.
   ansi = [
-    surface2 # 0 black
-    red # 1
-    green # 2
-    yellow # 3
-    blue # 4
-    pink # 5 magenta
-    teal # 6 cyan
-    subtext # 7 white
-    "585b70" # 8 bright black
-    red # 9
-    green # 10
-    yellow # 11
-    blue # 12
-    pink # 13
-    teal # 14
-    "a6adc8" # 15 bright white
+    "32344a" # 0 black
+    "f7768e" # 1 red
+    "9ece6a" # 2 green
+    "e0af68" # 3 yellow
+    "7aa2f7" # 4 blue
+    "ad8ee6" # 5 magenta
+    "449dab" # 6 cyan
+    "787c99" # 7 white
+    "444b6a" # 8 bright black
+    "ff7a93" # 9
+    "b9f27c" # 10
+    "ff9e64" # 11
+    "7da6ff" # 12
+    "bb9af7" # 13
+    "0db9d7" # 14
+    "acb0d0" # 15 bright white
   ];
 }

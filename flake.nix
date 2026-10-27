@@ -14,6 +14,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Intel Macs: nixpkgs 26.05 is the last release that supports x86_64-darwin
+    # (security updates until the end of 2026). Only #macbook-intel uses these.
+    nixpkgs-intel.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
+    nix-darwin-intel = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-intel";
+    };
+    home-manager-intel = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-intel";
+    };
+
     # Installs and pins Homebrew itself, so casks can be managed declaratively.
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
@@ -26,12 +38,6 @@
     cliamp = {
       url = "github:bjarneo/cliamp";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Wallpapers for the Hyprland desktop.
-    omarchy-catppuccin-dark = {
-      url = "github:Luquatic/omarchy-catppuccin-dark";
-      flake = false;
     };
   };
 
@@ -53,6 +59,14 @@
       # sudo darwin-rebuild switch --flake ./nix#macbook
       darwinConfigurations.${settings.darwin.hostname} = lib.mkDarwin {
         hostModule = ./hosts/macbook;
+      };
+
+      # sudo darwin-rebuild switch --flake ./nix#macbook-intel
+      darwinConfigurations.${settings.darwinIntel.hostname} = lib.mkDarwin {
+        hostModule = ./hosts/macbook-intel;
+        host = settings.darwinIntel;
+        darwin = inputs.nix-darwin-intel;
+        homeManager = inputs.home-manager-intel;
       };
 
       # ---------------------------------------------------------------

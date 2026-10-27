@@ -1,6 +1,6 @@
 # SketchyBar (stand-in for the Waybar top bar). Item and plugin scripts are
 # in nix/sketchybar (copied from macos-2024-m4/sketchybar); the colors and the
-# bar itself are Catppuccin Dark versions defined here.
+# bar itself are Tokyo Night OLED versions defined here.
 { ... }:
 let
   c = import ../../palette.nix;
@@ -16,18 +16,18 @@ in
       executable = true;
       text = ''
         #!/usr/bin/env sh
-        # Catppuccin Dark
+        # Tokyo Night OLED
         BLACK=${argb c.background}
         WHITE=${argb c.foreground}
-        MAGENTA=${argb c.mauve}
+        MAGENTA=${argb c.magenta}
         BLUE=${argb c.blue}
-        CYAN=${argb c.sky}
+        CYAN=${argb c.cyan}
         GREEN=${argb c.green}
         YELLOW=${argb c.yellow}
-        ORANGE=${argb c.peach}
+        ORANGE=${argb c.orange}
         RED=${argb c.red}
         BAR_COLOR=${argb c.background}
-        COMMENT=${argb c.overlay0}
+        COMMENT=${argb c.comment}
         TRANSPARENT=0x00000000
 
         ICON_COLOR=$WHITE
@@ -54,7 +54,7 @@ in
       executable = true;
       text = ''
         #!/usr/bin/env bash
-        export PATH="/etc/profiles/per-user/$USER/bin:/run/current-system/sw/bin:/opt/homebrew/bin:$PATH"
+        export PATH="/etc/profiles/per-user/$USER/bin:/run/current-system/sw/bin:/opt/homebrew/bin:/usr/local/bin:$PATH" # Apple Silicon, Intel
 
         source "$HOME/.config/sketchybar/variables.sh"
 
@@ -89,7 +89,7 @@ in
           popup.background.color="$POPUP_BACKGROUND_COLOR" \
           popup.background.shadow.drawing="$SHADOW"
 
-        # Aerospace workspaces; the focused one gets a Catppuccin blue outline.
+        # Aerospace workspaces; the focused one gets a Tokyo Night blue outline.
         sketchybar --add event aerospace_workspace_change
         for sid in $(aerospace list-workspaces --all); do
           sketchybar --add item space.$sid left \
