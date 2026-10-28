@@ -25,7 +25,7 @@ let
     pkgs.gnutar
     pkgs.gzip
     pkgs.unzip
-    pkgs.nodejs_24
+    (pkgs.callPackage ../../pkgs/node-24.nix { })
     pkgs.rustup
   ];
 in

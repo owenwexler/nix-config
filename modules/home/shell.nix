@@ -78,7 +78,6 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
-    NPM_CONFIG_PREFIX = "$HOME/.npm-global";
   };
 
   # `delfromredis KEY` (alias in aliases.txt) deletes a key from local Redis.

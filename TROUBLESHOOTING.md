@@ -7,7 +7,7 @@ For the next run I am going to delete the current VM, create a new one, and inst
 • The Symptom: Passing core Nix configurations like --option experimental-features "nix-command flakes" directly to nixos-rebuild switch resulted in an unrecognized arguments syntax block.
 • The Cause: nixos-rebuild is a helper script wrapper that does not directly parse core nix evaluation flags.
 • The Solution: Pass temporary configurations to the underlying evaluator inline via the NIX_CONFIG environment variable prefix:bash
-sudo NIX_CONFIG="experimental-features = nix-command flakes" nixos-rebuild switch --flake /nix-config#nixos
+sudo NIX_CONFIG="experimental-features = nix-command flakes" nixos-rebuild switch --flake /dotfiles/nix#nixos
 Use code with caution.
 • Permanent Fix: Declare the experimental features directly within the system configuration module tree so flags are unnecessary going forward:nix
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -27,7 +27,7 @@ ADDENDUM: Maybe conditionally activate this only on ARM?
 • The Symptom: Large systemic environment updates (~23GB footprints) abruptly crashed mid-stream with Timeout was reached (28) or SSL connect error (35) Recv failure.
 • The Cause: Concurrent data requests saturated internal virtual machine NAT channels and tripped protective rate-limiting mechanisms on the upstream edge servers hosting cache.nixos.org.
 • The Solution: Stagger and throttle network deployment routines down to sequential single-threaded downloads with highly persistent connection attempts:bash
-sudo nixos-rebuild switch --flake /nix-config#nixos \
+sudo nixos-rebuild switch --flake /dotfiles/nix#nixos \
   --max-jobs 1 \
   --option workers 1 \
   --option download-attempts 10
@@ -39,7 +39,7 @@ SOLUTION: Keep the computer awake with Amphetamine or macOS settings during NixO
 
 • The Symptom: Fixed-output source package derivations (like Go modules or dependencies for applications like cliamp) aborted evaluation with an asset integrity mismatch error (specified hash: sha256-X..., got hash: sha256-Y...).
 • The Cause: Upstream sources altered files or dependencies under a targeted commit without updating the downstream package script specification.
-• The Solution: Use grep -rn "package-name" /nix-config/ to track down the module definition, swap the string listed under sha256 or vendorHash with the new target hash reported by Nix, stage the modifications to the git layout (git add .), and re-run your build sequence.
+• The Solution: Use grep -rn "package-name" /dotfiles/nix/ to track down the module definition, swap the string listed under sha256 or vendorHash with the new target hash reported by Nix, stage the modifications to the git layout (git add .), and re-run your build sequence.
 • Alternate Solution (not preferred): Omit cliamp from install 
 
 5. System Lockout and Missing Command Path in Recoveries

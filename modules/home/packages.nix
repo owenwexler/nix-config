@@ -38,7 +38,7 @@ let
       (callPackage ../../pkgs/bun-1_4.nix { })
       deno
       turso-cli
-      nodejs_24
+      (callPackage ../../pkgs/node-24.nix { }) # 24.22.1+, see the file
       (callPackage ../../pkgs/go-1_27.nix { })
       rustup
       dotnetCorePackages.sdk_10_0

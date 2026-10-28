@@ -7,23 +7,23 @@
   stdenv,
 }:
 let
-  version = "1.4.3";
+  version = "1.4.4";
   assets = {
     x86_64-linux = {
       name = "bun-linux-x64";
-      hash = "sha256-PnMFKNiXdfA/h/BcBnh8TfQJnQo38/JS57gpyyOBbhg=";
+      hash = "sha256-v4zL+ysLgBWeD5ptFcVTF63YB3U028YTCj7bUvzLOVw=";
     };
     aarch64-linux = {
       name = "bun-linux-aarch64";
-      hash = "sha256-76mBPaXtckI7+Ef5FujSxHwNd2rdlyNUAmp14Q2pqiE=";
+      hash = "sha256-uqa7NvUdblhWHgK76oJQOKnfRU9nPW13bou/hvjHhQ4=";
     };
     aarch64-darwin = {
       name = "bun-darwin-aarch64";
-      hash = "sha256-gK/UwGm0am+o8+xSC+vHUKeEPkqNW5WD0prUNsAKNAM=";
+      hash = "sha256-wkDX8My5DCY6hJ/NsJt+5iYw2SE0jtaq/ahrnVd7xRA=";
     };
     x86_64-darwin = {
       name = "bun-darwin-x64";
-      hash = "sha256-YmYOZDjrhyJ4h3rMp34RUtXQMTJN82jUqBtCghFInS0=";
+      hash = "sha256-UKNJH3Orwv6BZzFxqFdi07wswWgMzsrdmD3pmt93l34=";
     };
   };
   asset =

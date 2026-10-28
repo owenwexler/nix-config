@@ -30,6 +30,7 @@ modules/
 hosts/                 per-machine bits: nixos (hardware config goes here), macbook, macbook-intel
 pkgs/bun-1_4.nix       Bun pinned to 1.4.x
 pkgs/go-1_27.nix       Go pinned to 1.27.x
+pkgs/node-24.nix       Node pinned to 24.x (official binaries)
 nvim/ helix/ zed/ ...  raw config files the modules link into place
 ```
 
@@ -62,9 +63,9 @@ Targets: the Parallels ARM VM on the M4 MacBook Pro, and later bare metal on an 
 4. Get the repo and this machine's hardware config:
    ```sh
    nix-shell -p git
-   git clone https://github.com/owenwexler/nix-config ~/nix-config
-   cp /etc/nixos/hardware-configuration.nix ~/nix-config/hosts/nixos/
-   git -C ~/nix-config add nix/hosts/nixos/hardware-configuration.nix
+   git clone https://github.com/owenwexler/dotfiles ~/dotfiles
+   cp /etc/nixos/hardware-configuration.nix ~/dotfiles/nix/hosts/nixos/
+   git -C ~/dotfiles add nix/hosts/nixos/hardware-configuration.nix
    ```
 5. Check `settings.nix` (hostname, `macKeyboard` for Apple keyboards, and `system`:
    `aarch64-linux` for the Parallels VM on Apple Silicon, `x86_64-linux` on Intel/AMD).
@@ -74,7 +75,7 @@ Targets: the Parallels ARM VM on the M4 MacBook Pro, and later bare metal on an 
    timeouts from killing the ~23 GB first install:
    ```sh
    sudo NIX_CONFIG=$'experimental-features = nix-command flakes\nmax-jobs = 1\nhttp-connections = 4\ndownload-attempts = 10\nconnect-timeout = 30' \
-     nixos-rebuild switch --flake ~/nix-config#nixos
+     nixos-rebuild switch --flake ~/dotfiles/nix#nixos
    ```
    If it still fails partway, run the same command again; finished downloads are kept.
 7. Reboot. Log in at the text greeter; Hyprland starts.
@@ -199,7 +200,7 @@ config sets `useGlobalPkgs = false`, also set `nixpkgs.config.allowUnfree = true
 that package set is created.
 
 Exports: `nixosModules.{software,core,desktop,default}`, `homeModules.{common,hyprland,darwin}`,
-`darwinModules.default`, `overlays.default` (adds `bun_1_4` and `go_1_27`).
+`darwinModules.default`, `overlays.default` (adds `bun_1_4`, `go_1_27` and `node_24`).
 
 Software groups can be switched off per machine, e.g. `dotfiles.software.gaming = false;`
 (groups: `gaming`, `gameDev`, `videoEditing`, `mobileDev`, `kotlinDev`, `remoteGui`,
@@ -228,12 +229,14 @@ Where something in the spec doesn't exist on one platform, this is what's used i
 NVM, the npm globals (`lite-server http-server nodemon license gitconfig` into `~/.npm-global`),
 the Rust stable toolchain (via rustup), Grok Build (xAI's install script).
 
-**Bun** is pinned to 1.4.3 in `pkgs/bun-1_4.nix`; the file explains how to bump it.
+**Bun** is pinned to 1.4.4 in `pkgs/bun-1_4.nix`, **Node** to 24.22.1 in `pkgs/node-24.nix`
+(official nodejs.org builds, so security fixes don't wait on nixpkgs). Each file explains how
+to bump it. `nvm` manages its own Node versions alongside (`nvm install --lts`, `nvm use`).
 
 ## Troubleshooting
 
 **Hash mismatch** (`specified: sha256-X..., got: sha256-Y...`): an upstream file changed
-under a pinned version. Find the pin with `grep -rn "sha256-X" ~/nix-config/`, replace it
+under a pinned version. Find the pin with `grep -rn "sha256-X" ~/dotfiles/nix/`, replace it
 with the `got:` hash, `git add` the file, and rebuild. Bun, Go and cliamp's Go dependencies
 are pinned in this repo (`pkgs/` and `modules/home/packages.nix`).
 

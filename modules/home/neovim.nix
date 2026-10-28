@@ -16,7 +16,7 @@ in
       fd
       lazygit
       tree-sitter
-      nodejs_24
+      (callPackage ../../pkgs/node-24.nix { })
       unzip
       gnumake
     ];
