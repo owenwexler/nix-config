@@ -16,7 +16,7 @@ in
       fd
       lazygit
       tree-sitter
-      nodejs_22
+      nodejs_24
       unzip
       gnumake
     ];
